@@ -9,7 +9,7 @@ st.title("Oltin narxi bashorati")
 st.write("Kelajakdagi sanani tanlang va bashoratlangan oltin narxini ko'ring.")
 
 # 1. Modelni yuklash
-model = joblib.load("oltin.pkl")  # Model fayli yuklangan deb hisoblanadi
+model = joblib.load("oltin1.pkl")  # Model fayli yuklangan deb hisoblanadi
 
 # 2. Foydalanuvchidan kelajakdagi sanani olish
 future_date = st.date_input("Sanani tanlang:", value=datetime(2024, 12, 13))
