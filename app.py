@@ -31,22 +31,29 @@ if st.button("Bashoratni ko'rish"):
     prediction = model.predict(input_data)
     st.write(f"Bashorat qilingan oltin narxi: **${prediction[0]:,.2f} USD**")
 
-# 4. Bugungi oltin narxini olish
-def get_current_gold_price():
-    url = "https://www.goldapi.io/api/XAU/USD"  # API URL
+# 4. Bugungi oltin narxini olish (GoldAPI orqali)
+def make_gapi_request():
+    api_key = "goldapi-3eq7jsm4ip79td-io"
+    symbol = "XAU"
+    curr = "USD"
+    url = f"https://www.goldapi.io/api/{symbol}/{curr}"
+
     headers = {
-        'x-rapidapi-key': 'goldapi-3eq7jsm4ip79td-io',  # API kaliti
-        'x-rapidapi-host': 'www.goldapi.io'
+        "x-access-token": api_key,
+        "Content-Type": "application/json"
     }
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
+    
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
         data = response.json()
         return data['price']
-    else:
+    except requests.exceptions.RequestException as e:
+        print("Error:", str(e))
         return None
 
 # Bugungi oltin narxini ko'rsatish
-current_price = get_current_gold_price()
+current_price = make_gapi_request()
 if current_price:
     st.write(f"Bugungi oltin narxi: **${current_price:,.2f} USD**")
 else:
