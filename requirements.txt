@@ -1,5 +1,6 @@
-pandas
-streamlit
+streamlit 
+cryptography
 joblib
-scikit-learn
+fernet
 requests
+scikit-learn
